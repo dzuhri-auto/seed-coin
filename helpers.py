@@ -6,7 +6,6 @@ from itertools import cycle
 from urllib.parse import unquote
 
 from better_proxy import Proxy
-from pyrogram import Client
 from telethon import TelegramClient
 
 from bot.config import settings
