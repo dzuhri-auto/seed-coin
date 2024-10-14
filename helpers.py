@@ -2,10 +2,12 @@ import glob
 import json
 import os
 from datetime import datetime, timedelta, timezone
+from itertools import cycle
 from urllib.parse import unquote
 
 from better_proxy import Proxy
 from pyrogram import Client
+from telethon import TelegramClient
 
 from bot.config import settings
 from bot.exceptions import MissingApiKeyException, MissingTelegramAPIException
@@ -59,28 +61,54 @@ def check_telegram_api():
         )
 
 
-async def get_tg_clients() -> list[Client]:
-    # global tg_clients
-
+async def get_tg_clients() -> list[TelegramClient]:
+    API_ID = settings.API_ID
+    API_HASH = settings.API_HASH
+    proxies = get_proxies()
+    proxies_cycle = cycle(proxies) if proxies else None
     tg_clients = []
+    tg_client_device_model = "iPhone 14 Pro Max"
+    tg_client_system_version = "18.0"
+    session_folder = "sessions"
     session_names = get_session_names()
-
-    # if not session_names:
-    #     raise FileNotFoundError("Not found session files")
-
-    # if not settings.API_ID or not settings.API_HASH:
-    #     raise ValueError("API_ID and API_HASH not found in the .env file.")
     if session_names:
-        tg_clients = [
-            Client(
-                name=session_name,
-                api_id=settings.API_ID,
-                api_hash=settings.API_HASH,
-                workdir="sessions/",
-                plugins=dict(root="bot/plugins"),
-            )
-            for session_name in session_names
-        ]
+        for session_name in session_names:
+            session_path = os.path.join(session_folder, session_name)
+            proxy_str = next(proxies_cycle) if proxies_cycle else None
+            if proxy_str:
+                proxy = Proxy.from_str(proxy_str)
+                # print(f"using proxy : {proxy}")
+                proxy_dict = dict(
+                    proxy_type=proxy.protocol,
+                    addr=proxy.host,
+                    port=proxy.port,
+                    username=proxy.login,
+                    password=proxy.password,
+                )
+                async with TelegramClient(
+                    session_path,
+                    API_ID,
+                    API_HASH,
+                    device_model=tg_client_device_model,
+                    system_version=tg_client_system_version,
+                    proxy=proxy_dict,
+                ) as client:
+                    me = await client.get_me()
+                    if me:
+                        tg_client_obj = {"tg_client": client, "session_name": session_name}
+                        tg_clients.append(tg_client_obj)
+            else:
+                async with TelegramClient(
+                    session_path,
+                    API_ID,
+                    API_HASH,
+                    device_model=tg_client_device_model,
+                    system_version=tg_client_system_version,
+                ) as client:
+                    me = await client.get_me()
+                    if me:
+                        tg_client_obj = {"tg_client": client, "session_name": session_name}
+                        tg_clients.append(tg_client_obj)
 
     return tg_clients
 
