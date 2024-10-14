@@ -8,6 +8,6 @@ loguru==0.7.2
 python-dotenv==1.0.1
 pytz==2024.1
 requests==2.32.3
-Pyrogram==2.0.106
 tgcrypto==1.2.5
 certifi==2024.8.30
+telethon==1.37.0

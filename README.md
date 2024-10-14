@@ -7,6 +7,7 @@ SEED Telegram Mini App Bot Auto
 
 ## Features
 
+- Support Telethon sessions
 - Auto Daily
 - Auto Claim Ticket Streak
 - Auto Hunting
@@ -55,7 +56,7 @@ All the configurations can be set in the .env file.
 3. Record the `API_ID` and `API_HASH` provided after registering your application in the `.env` file.
 
 > [!WARNING]
-> *Please make sure to only add a Telegram account with an ID number below `61xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account will be automatically banned.*
+> *Please make sure to only add a Telegram account with an ID number below `61xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account may be at risk of being banned.*
 
 <!-- ## How to obtain and use Query ID
 
@@ -68,6 +69,10 @@ If you're using multiple accounts, simply add each query ID on a new line, like 
 query_id=xxxxxxxxx-User1
 query_id=xxxxxxxxx-User2
 ``` -->
+
+## How to use existing telethon session
+
+To use existing / logged in sessions, [read this guide.](https://irhamdz.notion.site/Use-existing-telethon-sessions-11f53e55353080bc968ee5ee446e7d2b?pvs=74)
 
 ## How to Use Proxy
 
