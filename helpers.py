@@ -1,6 +1,9 @@
+import asyncio
 import glob
 import json
 import os
+import shutil
+import sqlite3
 from datetime import datetime, timedelta, timezone
 from itertools import cycle
 from urllib.parse import unquote
@@ -10,6 +13,7 @@ from telethon import TelegramClient
 
 from bot.config import settings
 from bot.exceptions import MissingApiKeyException, MissingTelegramAPIException
+from bot.utils import info, warning
 from constants import WormRarityConstants
 
 
@@ -61,53 +65,89 @@ def check_telegram_api():
 
 
 async def get_tg_clients() -> list[TelegramClient]:
-    API_ID = settings.API_ID
-    API_HASH = settings.API_HASH
+    # API_ID = settings.API_ID
+    # API_HASH = settings.API_HASH
+    API_ID = 10840
+    API_HASH = "33c45224029d59cb3ad0c16134215aeb"
     proxies = get_proxies()
     proxies_cycle = cycle(proxies) if proxies else None
     tg_clients = []
     tg_client_device_model = "iPhone 14 Pro Max"
     tg_client_system_version = "18.0"
+    tg_client_app_version = "11.0"
     session_folder = "sessions"
     session_names = get_session_names()
     if session_names:
+        gc = 0
+        session_to_move = []
         for session_name in session_names:
+            await asyncio.sleep(delay=1)
             session_path = os.path.join(session_folder, session_name)
             proxy_str = next(proxies_cycle) if proxies_cycle else None
-            if proxy_str:
-                proxy = Proxy.from_str(proxy_str)
-                # print(f"using proxy : {proxy}")
-                proxy_dict = dict(
-                    proxy_type=proxy.protocol,
-                    addr=proxy.host,
-                    port=proxy.port,
-                    username=proxy.login,
-                    password=proxy.password,
+            try:
+                if proxy_str:
+                    proxy = Proxy.from_str(proxy_str)
+                    # print(f"using proxy : {proxy}")
+                    proxy_dict = dict(
+                        proxy_type=proxy.protocol,
+                        addr=proxy.host,
+                        port=proxy.port,
+                        username=proxy.login,
+                        password=proxy.password,
+                    )
+                    client = TelegramClient(
+                        session_path,
+                        API_ID,
+                        API_HASH,
+                        device_model=tg_client_device_model,
+                        system_version=tg_client_system_version,
+                        app_version=tg_client_app_version,
+                        proxy=proxy_dict,
+                    )
+                else:
+                    client = TelegramClient(
+                        session_path,
+                        API_ID,
+                        API_HASH,
+                        device_model=tg_client_device_model,
+                        system_version=tg_client_system_version,
+                        app_version=tg_client_app_version,
+                    )
+            except sqlite3.DatabaseError:
+                warning(f"Bad session found: <red>{session_name}</red>, session corrupted")
+                session_to_move.append(session_name)
+                continue
+            except Exception as err:
+                warning(
+                    f"Bad session found: <red>{session_name}</red> with error {err.__class__.__name__}"
                 )
-                async with TelegramClient(
-                    session_path,
-                    API_ID,
-                    API_HASH,
-                    device_model=tg_client_device_model,
-                    system_version=tg_client_system_version,
-                    proxy=proxy_dict,
-                ) as client:
-                    me = await client.get_me()
-                    if me:
-                        tg_client_obj = {"tg_client": client, "session_name": session_name}
-                        tg_clients.append(tg_client_obj)
-            else:
-                async with TelegramClient(
-                    session_path,
-                    API_ID,
-                    API_HASH,
-                    device_model=tg_client_device_model,
-                    system_version=tg_client_system_version,
-                ) as client:
-                    me = await client.get_me()
-                    if me:
-                        tg_client_obj = {"tg_client": client, "session_name": session_name}
-                        tg_clients.append(tg_client_obj)
+                session_to_move.append(session_name)
+                continue
+
+            try:
+                await client.connect()
+                if not await client.is_user_authorized():
+                    await client.disconnect()
+                    warning(f"Bad session found: <red>{session_name}</red>, session not authorized")
+                    session_to_move.append(session_name)
+                else:
+                    tg_client_obj = {"tg_client": client, "session_name": session_name}
+                    tg_clients.append(tg_client_obj)
+                    gc += 1
+                    await client.disconnect()
+            except Exception as err:
+                await client.disconnect()
+                warning(f"Bad session found: {session_name} with error {err.__class__.__name__}")
+                session_to_move.append(session_name)
+                continue
+
+        for filename in session_to_move:
+            shutil.move(f"sessions/{filename}.session", f"bad_sessions/{filename}.session")
+            info(f"Move <red>{filename}.session</red> to bad_sessions folder")
+            await asyncio.sleep(delay=1)
+
+        if session_to_move:
+            info(f"Successfully move <red>{len(session_to_move)}</red> bad sessions ")
 
     return tg_clients
 

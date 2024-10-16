@@ -17,14 +17,17 @@ async def add_session() -> None:
     create_session = True
     tg_client_device_model = "iPhone 14 Pro Max"
     tg_client_system_version = "18.0"
-    API_ID = settings.API_ID
-    API_HASH = settings.API_HASH
+    tg_client_app_version = "11.0"
+    # API_ID = settings.API_ID
+    # API_HASH = settings.API_HASH
+    API_ID = 10840
+    API_HASH = "33c45224029d59cb3ad0c16134215aeb"
     session_folder = "sessions"
     if not os.path.exists(session_folder):
         os.makedirs(session_folder)
-    logger.warning(
-        "⚠️ Please register an account with a user ID below 61xxxx (check @userinfobot); otherwise, your account may be at risk of being banned!"
-    )
+    # logger.warning(
+    #     "⚠️ Please register an account with a user ID below 61xxxx (check @userinfobot); otherwise, your account may be at risk of being banned!"
+    # )
     while create_session:
         session_name = input("\nPlease enter the session name (press Enter to exit): ")
         if not session_name:
@@ -47,6 +50,7 @@ async def add_session() -> None:
                 API_HASH,
                 device_model=tg_client_device_model,
                 system_version=tg_client_system_version,
+                app_version=tg_client_app_version,
                 proxy=proxy_dict,
             )
         else:
@@ -56,6 +60,7 @@ async def add_session() -> None:
                 API_HASH,
                 device_model=tg_client_device_model,
                 system_version=tg_client_system_version,
+                app_version=tg_client_app_version,
             )
 
         async with client:

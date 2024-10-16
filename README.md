@@ -8,6 +8,8 @@ SEED Telegram Mini App Bot Auto
 ## Features
 
 - Support Telethon sessions
+- Auto Claim First Egg (for fresh account)
+- Auto Hatch Basic Egg
 - Auto Daily
 - Auto Claim Ticket Streak
 - Auto Hunting
