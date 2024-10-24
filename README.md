@@ -19,6 +19,8 @@ SEED Telegram Mini App Bot Auto
 - Auto Buy Worm
 - Auto Claim Guild Seed
 - Auto Clear Tasks 🔥🔥🔥 *(not all missions)*
+- Auto Spin Tickets
+- Auto Fusion Egg Pieces
 
 ## Supported Operating Systems
 
@@ -58,7 +60,7 @@ All the configurations can be set in the .env file.
 3. Record the `API_ID` and `API_HASH` provided after registering your application in the `.env` file.
 
 > [!WARNING]
-> *Please make sure to only add a Telegram account with an ID number below `61xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account may be at risk of being banned.*
+> *Please make sure to only add a Telegram account with an ID number below `63xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account may be at risk of being banned.*
 
 <!-- ## How to obtain and use Query ID
 

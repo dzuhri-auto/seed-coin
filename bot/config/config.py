@@ -17,6 +17,9 @@ class Settings:
     AUTO_BUY_WORM = os.getenv("AUTO_BUY_WORM", "False")
     AUTO_UPGRADE = os.getenv("AUTO_UPGRADE", "True")
     MIN_CLAIM_GUILD_AMOUNT = int(os.getenv("MIN_CLAIM_GUILD_AMOUNT", "7"))
+    AUTO_SPIN = os.getenv("AUTO_SPIN", "True")
+    AUTO_FUSION = os.getenv("AUTO_FUSION", "False")
+    
     USE_RANDOM_DELAY_IN_RUN = os.getenv("AUTO_UPGRADE", "True")
     RANDOM_DELAY_IN_RUN = json.loads(os.getenv("RANDOM_DELAY_IN_RUN", "[5, 15]"))
     USE_PROXY_FROM_FILE = os.getenv("USE_PROXY_FROM_FILE", "False")

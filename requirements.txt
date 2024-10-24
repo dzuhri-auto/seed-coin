@@ -12,3 +12,4 @@ tgcrypto==1.2.5
 certifi==2024.8.30
 telethon==1.37.0
 PySocks==1.7.1
+rich==13.9.2
