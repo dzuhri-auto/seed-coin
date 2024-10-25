@@ -9,7 +9,6 @@ SEED Telegram Mini App Bot Auto
 
 - Support Telethon sessions
 - Auto Claim First Egg (for fresh account)
-- Auto Hatch Basic Egg
 - Auto Daily
 - Auto Claim Ticket Streak
 - Auto Hunting
@@ -21,6 +20,7 @@ SEED Telegram Mini App Bot Auto
 - Auto Clear Tasks 🔥🔥🔥 *(not all missions)*
 - Auto Spin Tickets
 - Auto Fusion Egg Pieces
+- Auto Hatch Egg
 
 ## Supported Operating Systems
 
