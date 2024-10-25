@@ -48,6 +48,9 @@ All the configurations can be set in the .env file.
 | REF_LINK                | Put your refferal link here                  | my ref link |
 | AUTO_UPGRADE            | Enable auto upgrade boosts                   | True        |
 | AUTO_BUY_WORM           | Enable auto upgrade worm from market         | False       |
+| AUTO_SPIN               | Enable auto upgrade worm from market         | True        |
+| AUTO_FUSION             | Enable auto upgrade worm from market         | False       |
+| AUTO_HATCH              | Enable auto upgrade worm from market         | False       |
 | MIN_CLAIM_GUILD_AMOUNT  | Minimum guild seed that can be claimed       | 7           |
 | USE_RANDOM_DELAY_IN_RUN | Delay each account in seconds                | True        |
 | RANDOM_DELAY_IN_RUN     | Delay after all account completed in seconds | [5, 15]     |
