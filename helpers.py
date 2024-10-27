@@ -4,7 +4,7 @@ import os
 from datetime import datetime, timedelta, timezone
 from urllib.parse import unquote
 
-from python_socks.sync import Proxy
+from better_proxy import Proxy
 
 from bot.config import settings
 from bot.exceptions import MissingTelegramAPIException
@@ -56,7 +56,7 @@ def check_telegram_api():
 def get_proxies() -> list[Proxy]:
     if settings.USE_PROXY_FROM_FILE.lower() == "true":
         with open(file="bot/config/proxies.txt", encoding="utf-8-sig") as file:
-            proxies = [row.strip() for row in file]
+            proxies = [Proxy.from_str(proxy=row.strip()).as_url for row in file]
     else:
         proxies = []
     return proxies
