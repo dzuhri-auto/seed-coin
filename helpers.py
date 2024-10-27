@@ -56,7 +56,7 @@ def check_telegram_api():
 def get_proxies() -> list[Proxy]:
     if settings.USE_PROXY_FROM_FILE.lower() == "true":
         with open(file="bot/config/proxies.txt", encoding="utf-8-sig") as file:
-            proxies = [Proxy.from_url(row) for row in file]
+            proxies = [row.strip() for row in file]
     else:
         proxies = []
     return proxies
