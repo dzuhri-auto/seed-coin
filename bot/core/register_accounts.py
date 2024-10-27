@@ -1,7 +1,7 @@
 import os
 from itertools import cycle
 
-from better_proxy import Proxy
+from python_socks.sync import Proxy
 from telethon import TelegramClient
 
 from bot.config import settings
@@ -32,7 +32,7 @@ async def add_session() -> None:
         session_path = os.path.join(session_folder, session_name)
         proxy_str = next(proxies_cycle) if proxies_cycle else None
         if proxy_str:
-            proxy = Proxy.from_str(proxy_str)
+            proxy = Proxy.from_url(proxy_str)
             print(f"using proxy : {proxy}")
             proxy_dict = dict(
                 proxy_type=proxy.protocol,
