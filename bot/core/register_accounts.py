@@ -33,7 +33,7 @@ async def add_session() -> None:
         proxy_str = next(proxies_cycle) if proxies_cycle else None
         if proxy_str:
             proxy = Proxy.from_url(proxy_str)
-            print(f"using proxy : {proxy}")
+            print(f"using proxy : {proxy_str}")
             proxy_dict = dict(
                 proxy_type=proxy._proxy_type,
                 addr=proxy.proxy_host,
