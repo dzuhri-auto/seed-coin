@@ -35,11 +35,11 @@ async def add_session() -> None:
             proxy = Proxy.from_url(proxy_str)
             print(f"using proxy : {proxy}")
             proxy_dict = dict(
-                proxy_type=proxy.protocol,
-                addr=proxy.host,
-                port=proxy.port,
-                username=proxy.login,
-                password=proxy.password,
+                proxy_type=proxy._proxy_type,
+                addr=proxy.proxy_host,
+                port=proxy.proxy_port,
+                username=proxy._username,
+                password=proxy._password,
             )
             client = TelegramClient(
                 session_path,
