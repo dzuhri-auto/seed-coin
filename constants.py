@@ -16,7 +16,7 @@ class EggRarityConstants(object):
     UNCOMMON = "uncommon"
     COMMON = "common"
 
-JOIN_CHANNEL_TASK_TYPE = ["join", "OKX_community"]
+JOIN_CHANNEL_TASK_TYPE = ["join", "OKX_community", "Join community"]
 
 API_CHANGED_ERR_MSG = "Server API change detected! Bot stopped for safety."
 
