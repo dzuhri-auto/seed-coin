@@ -2,8 +2,12 @@
 
 SEED Telegram Mini App Bot Auto
 
-> [!NOTE]
-> This is a paid script that requires a valid license key to operate. For more information, please visit the [Dzuhri Auto](https://irhamdz.notion.site/Dzuhri-Auto-10f53e55353080f98fbae250bd7172d1) page.
+Bot Link: <https://t.me/seed_coin_bot/app?startapp=441146600>
+
+[![Static Badge](https://img.shields.io/badge/Dzuhri_AUTO_Links-yes?style=for-the-badge&color=black)](https://t.me/hidden_coding)
+[![Static Badge](https://img.shields.io/badge/Channel-yes?style=for-the-badge&logo=Telegram&logoColor=white&logoSize=auto&color=blue)](https://t.me/dzuhri_auto)
+[![Static Badge](https://img.shields.io/badge/discussion-yes?style=for-the-badge&logo=Telegram&logoColor=white&logoSize=auto&color=blue)](https://t.me/dzuhri_auto_discussion)
+[![Static Badge](https://img.shields.io/badge/BOT_Store-yes?style=for-the-badge&logo=Telegram&logoColor=white&logoSize=auto&color=blue)](https://t.me/dz_auto_store)
 
 ## Features
 
@@ -18,9 +22,11 @@ SEED Telegram Mini App Bot Auto
 - Auto Buy Worm
 - Auto Claim Guild Seed
 - Auto Clear Tasks 🔥🔥🔥 *(not all missions)*
+- Auto Clear Academy Tasks
 - Auto Spin Tickets
 - Auto Fusion Egg Pieces
 - Auto Hatch Egg
+- Auto Sell Unneeded Worms
 
 ## Supported Operating Systems
 
@@ -52,6 +58,7 @@ All the configurations can be set in the .env file.
 | AUTO_FUSION             | Enable auto upgrade worm from market         | False       |
 | AUTO_HATCH              | Enable auto upgrade worm from market         | False       |
 | MIN_CLAIM_GUILD_AMOUNT  | Minimum guild seed that can be claimed       | 7           |
+| AUTO_SELL_WORM          | Enable auto sell worm to market              | False       |
 | USE_RANDOM_DELAY_IN_RUN | Delay each account in seconds                | True        |
 | RANDOM_DELAY_IN_RUN     | Delay after all account completed in seconds | [5, 15]     |
 | USE_PROXY_FROM_FILE     | For using proxy                              | False       |
@@ -61,9 +68,6 @@ All the configurations can be set in the .env file.
 1. Go to [my.telegram.org](https://my.telegram.org/) and log in using your phone number.
 2. Select `API development tools` and fill out the form to register a new application.
 3. Record the `API_ID` and `API_HASH` provided after registering your application in the `.env` file.
-
-> [!WARNING]
-> *Please make sure to only add a Telegram account with an ID number below `63xxxxx`. You can check your ID by using `@userinfobot`. If your ID is higher than this, your account may be at risk of being banned.*
 
 <!-- ## How to obtain and use Query ID
 

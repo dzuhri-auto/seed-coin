@@ -20,6 +20,7 @@ class Settings:
     AUTO_SPIN = os.getenv("AUTO_SPIN", "True")
     AUTO_FUSION = os.getenv("AUTO_FUSION", "False")
     AUTO_HATCH = os.getenv("AUTO_HATCH", "False")
+    AUTO_SELL_WORM = os.getenv("AUTO_SELL_WORM", "False")
     
     USE_RANDOM_DELAY_IN_RUN = os.getenv("AUTO_UPGRADE", "True")
     RANDOM_DELAY_IN_RUN = json.loads(os.getenv("RANDOM_DELAY_IN_RUN", "[5, 15]"))

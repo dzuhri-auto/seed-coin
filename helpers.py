@@ -14,6 +14,9 @@ from constants import WormRarityConstants
 def calculate_real_number(number):
     return number / 1000000000
 
+def calculate_original_number(number):
+    return number * 1000000000
+
 
 def update_or_add_dict(list_of_dicts, key, key_value, new_data):
     """
